@@ -11,3 +11,6 @@ dist/
 # Editor / OS
 .DS_Store
 *.log
+
+docs/
+.cursor/
