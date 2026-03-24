@@ -1,0 +1,96 @@
+import { useState } from 'react';
+import SectionTitle from '../components/Shared/SectionTitle';
+import { DOCTORS } from '../constants/appointments';
+import { DR_RIZWAN_CONDITIONS, DR_FAIZA_SERVICES } from '../constants/doctors';
+
+const doctorDetails = [
+  {
+    slug: 'rizwan-shafiq',
+    name: 'Dr. Rizwan Shafiq',
+    specialization: 'Psychiatrist — FCPS Part 2 Psychiatry',
+    services: DR_RIZWAN_CONDITIONS.map((c) => c.en),
+    availability: 'Mon–Sat, Evening',
+    locations: ['Lahore (Harbanspura)', 'Kasur (Daulat Nagar)'],
+  },
+  {
+    slug: 'faiza-malik',
+    name: 'Dr. Faiza Malik Jabeen',
+    specialization: 'Pediatrician — FCPS Paediatrics',
+    services: DR_FAIZA_SERVICES.map((s) => s.en),
+    availability: 'Mon–Sat, Evening',
+    locations: ['Lahore (Harbanspura)', 'Kasur (Daulat Nagar)'],
+  },
+];
+
+export default function AdminDoctors() {
+  const [search, setSearch] = useState('');
+
+  const filtered = doctorDetails.filter((d) => {
+    if (!search) return true;
+    const q = search.toLowerCase();
+    return (
+      d.name.toLowerCase().includes(q) ||
+      d.specialization.toLowerCase().includes(q) ||
+      d.services.some((s) => s.toLowerCase().includes(q))
+    );
+  });
+
+  return (
+    <section className="py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <SectionTitle title="Admin — Doctors" subtitle={`${doctorDetails.length} doctors registered`} />
+
+        <div className="mt-8">
+          <input
+            type="text"
+            placeholder="Search by name, specialization, or service..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full max-w-md px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+          />
+        </div>
+
+        <div className="mt-6 grid gap-6 md:grid-cols-2">
+          {filtered.map((doc) => (
+            <div key={doc.slug} className="bg-white border border-gray-200 rounded-xl p-6">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900">{doc.name}</h3>
+                  <p className="text-sm text-primary font-medium">{doc.specialization}</p>
+                </div>
+                <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
+              </div>
+
+              <div className="mb-3">
+                <p className="text-xs font-medium text-gray-500 uppercase mb-1">Availability</p>
+                <p className="text-sm text-gray-700">{doc.availability}</p>
+              </div>
+
+              <div className="mb-3">
+                <p className="text-xs font-medium text-gray-500 uppercase mb-1">Locations</p>
+                <div className="flex flex-wrap gap-1">
+                  {doc.locations.map((loc) => (
+                    <span key={loc} className="text-xs bg-gray-100 text-gray-700 px-2 py-0.5 rounded">{loc}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs font-medium text-gray-500 uppercase mb-1">Services ({doc.services.length})</p>
+                <div className="flex flex-wrap gap-1">
+                  {doc.services.map((s) => (
+                    <span key={s} className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded">{s}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {filtered.length === 0 && (
+            <p className="text-gray-400 text-sm col-span-full text-center py-8">No doctors match your search.</p>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,274 @@
+import { useState } from 'react';
+import './AppointmentSection.css';
+
+// ── Assets from public/appointments/ ─────────────────────────────
+const bannerBg      = '/appointments/banner-bg.png';
+const doctorCutout  = '/appointments/hero-doctor-cutout.png';
+const contactImg    = '/appointments/contact-info-img.png';
+const arrowWhite    = '/appointments/arrow-white.svg';
+
+// ── Calendar SVG icon (inline — no separate file needed) ──────────
+function CalendarIcon() {
+  return (
+    <svg className="appt-form__input-icon--left" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="1" y="3" width="16" height="14" rx="2" stroke="#307bc4" strokeWidth="1.5" />
+      <path d="M1 7h16" stroke="#307bc4" strokeWidth="1.5" />
+      <path d="M5 1v4M13 1v4" stroke="#307bc4" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// ── Clock SVG icon (inline) ───────────────────────────────────────
+function ClockIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="8" stroke="#307bc4" strokeWidth="1.5" />
+      <path d="M9 5v4l3 2" stroke="#307bc4" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+// ── Shield SVG (inline — CTA section) ────────────────────────────
+function ShieldIcon() {
+  return (
+    <svg className="appt-cta__shield-svg" viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 10L20 45v65c0 45 35 80 80 100 45-20 80-55 80-100V45L100 10z" fill="#5a9fd4" opacity="0.85" />
+      <circle cx="100" cy="88" r="22" fill="white" opacity="0.3" />
+      <path d="M100 76v24M88 88h24" stroke="white" strokeWidth="4" strokeLinecap="round" />
+      <rect x="68" y="120" width="64" height="22" rx="4" fill="white" opacity="0.5" />
+    </svg>
+  );
+}
+
+// ── Sub-components ────────────────────────────────────────────────
+
+function AppointmentHero() {
+  return (
+    <section className="appt-hero">
+      <img className="appt-hero__bg" src={bannerBg} alt="" aria-hidden="true" />
+      <img
+        className="appt-hero__doctor"
+        src={doctorCutout}
+        alt="Healthcare professional"
+      />
+      <div className="appt-hero__content">
+        <h1 className="appt-hero__heading">
+          Don't Let Your Health<br />Take a Backseat!
+        </h1>
+        <p className="appt-hero__subheading">
+          Fill out the appointment form below to schedule a
+          consultation with one of our healthcare professionals.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function RadioGroup({ label, name, options, selected, onChange }) {
+  return (
+    <div className="appt-form__radio-group">
+      <span className="appt-form__radio-label">{label}</span>
+      <div className="appt-form__radio-options">
+        {options.map((option) => (
+          <label className="appt-form__radio-option" key={option}>
+            <input
+              type="radio"
+              name={name}
+              value={option}
+              checked={selected === option}
+              onChange={() => onChange(option)}
+            />
+            <span className="appt-form__radio-custom" />
+            <span className="appt-form__radio-text">{option}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AppointmentForm() {
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    medicalRecord: '',
+    preferredDate: '',
+    preferredTime: '',
+    reasonForVisit: '',
+    department: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRadio = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Appointment submitted:', formData);
+  };
+
+  return (
+    <div className="appt-form">
+      <h2 className="appt-form__heading">Appoinment</h2>
+      <form onSubmit={handleSubmit} noValidate>
+
+        {/* Row 1: Name + Phone */}
+        <div className="appt-form__row">
+          <div className="appt-form__field">
+            <label className="appt-form__label">Name</label>
+            <input
+              className="appt-form__input"
+              type="text"
+              name="name"
+              placeholder="David John"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="appt-form__field">
+            <label className="appt-form__label">Phone Number</label>
+            <input
+              className="appt-form__input"
+              type="tel"
+              name="phone"
+              placeholder="(123) 456 - 789"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        {/* Row 2: Medical Record Number (full width) */}
+        <div className="appt-form__row appt-form__row--full">
+          <div className="appt-form__field">
+            <label className="appt-form__label">Medical Record Number</label>
+            <input
+              className="appt-form__input"
+              type="text"
+              name="medicalRecord"
+              placeholder="123456-7890-0987"
+              value={formData.medicalRecord}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        {/* Row 3: Preferred Date + Preferred Time */}
+        <div className="appt-form__row">
+          <div className="appt-form__field">
+            <label className="appt-form__label">Preferred Date</label>
+            <div className="appt-form__input-wrap">
+              <CalendarIcon />
+              <input
+                className="appt-form__input"
+                type="text"
+                name="preferredDate"
+                placeholder="dd/mm/yyyy"
+                value={formData.preferredDate}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="appt-form__field">
+            <label className="appt-form__label">Preferred Time</label>
+            <div className="appt-form__input-wrap appt-form__input-wrap--time">
+              <ClockIcon className="appt-form__input-icon--left" />
+              <input
+                className="appt-form__input"
+                type="text"
+                name="preferredTime"
+                placeholder="-- : -- --"
+                value={formData.preferredTime}
+                onChange={handleChange}
+              />
+              <ClockIcon className="appt-form__input-icon--right" />
+            </div>
+          </div>
+        </div>
+
+        {/* Radio: Reason for Visit */}
+        <RadioGroup
+          label="Reason for Visit"
+          name="reasonForVisit"
+          options={['Routine Checkup', 'New Patient Visit', 'Specific Concern']}
+          selected={formData.reasonForVisit}
+          onChange={(val) => handleRadio('reasonForVisit', val)}
+        />
+
+        {/* Radio: Department */}
+        <RadioGroup
+          label="Department"
+          name="department"
+          options={['Pediatric', 'Obstetrics and Gynecology', 'Cardiology', 'Neurology']}
+          selected={formData.department}
+          onChange={(val) => handleRadio('department', val)}
+        />
+
+        <button className="appt-form__submit" type="submit">
+          Submit
+          <img src={arrowWhite} alt="" aria-hidden="true" />
+        </button>
+
+      </form>
+    </div>
+  );
+}
+
+function ContactInfo() {
+  return (
+    <div className="appt-contact">
+      <h2 className="appt-contact__heading">Contact Info</h2>
+      <img
+        className="appt-contact__image"
+        src={contactImg}
+        alt="Doctor holding phone"
+        loading="lazy"
+      />
+      <div className="appt-contact__item">
+        <p className="appt-contact__item-label">Phone</p>
+        <p className="appt-contact__item-value">123-456-7890</p>
+      </div>
+      <div className="appt-contact__item">
+        <p className="appt-contact__item-label">Email Us</p>
+        <p className="appt-contact__item-value">hellocallcenter@gmail.com</p>
+      </div>
+      <div className="appt-contact__item">
+        <p className="appt-contact__item-label">Our Location</p>
+        <p className="appt-contact__item-value">123 Anywhere St., Any City, 12345</p>
+      </div>
+    </div>
+  );
+}
+
+function AppointmentCta() {
+  return (
+    <section className="appt-cta">
+      <img className="appt-cta__bg" src={bannerBg} alt="" aria-hidden="true" />
+      <div className="appt-cta__shield">
+        <ShieldIcon />
+      </div>
+    </section>
+  );
+}
+
+// ── Main Export ───────────────────────────────────────────────────
+
+export default function AppointmentSection() {
+  return (
+    <>
+      <AppointmentHero />
+      <section className="appt-main">
+        <div className="appt-main__inner">
+          <AppointmentForm />
+          <ContactInfo />
+        </div>
+      </section>
+      <AppointmentCta />
+    </>
+  );
+}

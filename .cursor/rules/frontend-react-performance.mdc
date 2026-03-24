@@ -1,0 +1,35 @@
+---
+description: React performance, testing, env config, security
+globs: **/*.jsx, **/*.tsx, **/*.test.*
+alwaysApply: false
+---
+
+# Performance
+
+- `React.memo()` for pure components with complex props
+- `useMemo()` for expensive calculations
+- `useCallback()` for functions passed to optimized children
+- Lazy load: `const HeavySection = lazy(() => import('./HeavySection'));`
+- Images: `loading="lazy"` and explicit `width`/`height`
+- Avoid inline object/array in JSX (new refs every render)
+
+# Testing
+
+- Test files: `ComponentName.test.js` alongside component
+- Use React Testing Library; test behavior, not implementation
+- Mock API at page level; test real logic in hooks
+- Test accessibility (keyboard, screen reader)
+
+# Environment
+
+- `.env.local` for secrets (never commit)
+- `.env` for public vars: `REACT_APP_*`, `VITE_*`, or `NEXT_PUBLIC_*`
+- Document required env vars in README
+
+# Security
+
+- Never store API keys in frontend code
+- Sanitize user input (prevent XSS)
+- `dangerouslySetInnerHTML` only with sanitized content (DOMPurify)
+- Validate file uploads (type, size)
+- Use HTTPS for API calls in production

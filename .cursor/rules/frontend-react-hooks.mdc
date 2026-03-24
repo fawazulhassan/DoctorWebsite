@@ -1,0 +1,60 @@
+---
+description: React hooks usage, data fetching, custom hooks
+globs: **/*.jsx, **/*.tsx, **/hooks/**
+alwaysApply: false
+---
+
+# React Hooks Rules
+
+## When to Use Hooks
+
+| Situation | Need hooks? |
+|-----------|-------------|
+| Static page (text, images, no clicks) | No |
+| Button click, modal, form input | Yes — `useState` |
+| Load data from API | Yes — `useState` + `useEffect` |
+| Share data across components | Yes — `useContext` or store |
+
+## Data Fetching Pattern
+
+Always include `loading` and `error` state:
+
+```javascript
+const [data, setData] = useState([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  fetch("/api/services")
+    .then((res) => res.json())
+    .then((result) => { setData(result); setLoading(false); })
+    .catch((err) => { setError("Failed to load"); setLoading(false); });
+}, []);
+
+if (loading) return <p>Loading...</p>;
+if (error) return <p>{error}</p>;
+return <div>{/* show data */}</div>;
+```
+
+## Custom Hooks
+
+- Name starts with `use` (e.g. `useToggle`, `useFetch`)
+- One hook = one purpose
+- Place in `src/hooks/`
+- Return `[state, setter]` for simple state, `{data, loading}` for data
+
+```javascript
+// hooks/useToggle.js
+export function useToggle(initial = false) {
+  const [value, setValue] = useState(initial);
+  const toggle = useCallback(() => setValue(v => !v), []);
+  return [value, toggle];
+}
+```
+
+## Rules
+
+- Hooks only inside component function, at top level
+- `useState` at top for things that change (open/close, form values)
+- `useEffect` for fetch or run-on-load logic
+- Static pages: no hooks needed
