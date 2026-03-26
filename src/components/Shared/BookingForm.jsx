@@ -5,6 +5,7 @@ import { ASSET } from '../../utils/asset';
 import { DOCTORS, APPOINTMENT_SERVICES, VISIT_TYPES, LOCATIONS } from '../../constants/appointments';
 import { useAuth } from '../../contexts/AuthContext';
 import { generateTimeSlots, formatTime12h, getDayOfWeek, getActiveDaysText } from '../../utils/slots';
+import { sendAppointmentConfirmationEmail } from '../../utils/email';
 
 const inputClass =
   'w-full px-3 py-2 md:px-4 md:py-3 text-xs md:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent';
@@ -183,6 +184,14 @@ export default function BookingForm({ defaultDoctor = '' }) {
       setErrorMessage(`Booking failed: ${error.message || error.code || 'unknown error'}`);
       setStatus('error');
       return;
+    }
+
+    // Send confirmation email (non-blocking - booking succeeds even if email fails)
+    const emailResult = await sendAppointmentConfirmationEmail(row);
+    if (emailResult.success) {
+      console.log('[BookingForm] Confirmation email sent successfully');
+    } else {
+      console.warn('[BookingForm] Email failed but booking succeeded:', emailResult.error);
     }
 
     setStatus('success');
