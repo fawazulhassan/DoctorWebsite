@@ -370,6 +370,59 @@ Use this container for all constrained sections.
 4. Male doctor image (smiling, gesturing); light blue decorative curve shape (right column background)
 5. Form icons: calendar (Preferred Date), clock (Preferred Time), submit arrow (Submit button)
 
+### Email Confirmation Feature (EmailJS Integration)
+
+When a patient successfully books an appointment, an automated confirmation email is sent to the patient's email address.
+
+#### Technical Implementation
+
+| Component | Details |
+|-----------|---------|
+| Service | EmailJS (https://dashboard.emailjs.com/admin) |
+| Library | `@emailjs/browser` |
+| Utility File | `src/utils/email.js` |
+| Form Component | `src/components/Shared/BookingForm.jsx` |
+
+#### Environment Variables (`.env.local`)
+
+```env
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+```
+
+#### Email Template Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `to_email` | Recipient email (patient) | patient@email.com |
+| `patient_name` | Patient's full name | Fawaz Ul Hassan |
+| `patient_email` | Patient's email | patient@email.com |
+| `patient_phone` | Patient's phone number | 03117819614 |
+| `doctor_name` | Doctor's full name | Dr. Rizwan Shafiq |
+| `service_type` | Service type | Clinic appointment |
+| `location` | City/Location | Lahore |
+| `visit_type` | Visit type | Monthly Checkup |
+| `appointment_date` | Formatted date | Monday, March 27, 2026 |
+| `appointment_time` | Formatted time | 9:00 AM |
+| `message` | Patient's message | (optional) |
+| `online_platform` | Platform for online consultation | Zoom / Google Meet / WhatsApp |
+
+#### Email Flow
+
+1. Patient fills booking form and submits
+2. Data is saved to Supabase `appointments` table
+3. If Supabase insert succeeds, confirmation email is sent via EmailJS
+4. Email is sent to the patient's email address (`to_email`)
+5. User is redirected to confirmation page regardless of email status
+6. Email failure does NOT block booking success (non-blocking)
+
+#### Error Handling
+
+- If EmailJS is not configured, booking still succeeds (warning logged)
+- If email fails to send, booking still succeeds (error logged)
+- All errors are logged to browser console for debugging
+
 ---
 
 ## SECTION-10 — Usually Asked (FAQ)

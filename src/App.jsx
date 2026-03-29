@@ -24,6 +24,7 @@ import PaymentReturn from './pages/PaymentReturn';
 import AppointmentConfirmation from './pages/AppointmentConfirmation';
 import Emergency from './pages/Emergency';
 import AuthPage from './pages/AuthPage';
+import AuthCallback from './pages/AuthCallback';
 import AdminAppointments from './pages/AdminAppointments';
 import AdminDoctors from './pages/AdminDoctors';
 import AdminPatients from './pages/AdminPatients';
@@ -66,6 +67,7 @@ export default function App() {
 
           {/* Auth page (no Layout — uses its own centered layout) */}
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
 
           {/* Logged-in user pages */}
           <Route path="/my-appointments" element={<ProtectedRoute><Layout><MyAppointments /></Layout></ProtectedRoute>} />
