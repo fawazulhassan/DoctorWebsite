@@ -9,12 +9,6 @@ import AppointmentSection from '../components/Home/AppointmentSection';
 import FAQSection from '../components/Home/FAQSection';
 import PartnersSection from '../components/Home/PartnersSection';
 
-  const reviews = [
-    { name: 'Paulo Hubert', quote: 'Family-centered care and cutting-edge treatments made all the difference for us.', avatar: 'review-avatar-1.png' },
-    { name: 'Laurence Vendetta', quote: 'The staff was incredibly supportive and professional throughout my recovery.', avatar: 'review-avatar-2.png' },
-    { name: 'Cassandra Raul', quote: 'From diagnosis to follow-up, I felt heard and well cared for every step.', avatar: 'review-avatar-3.png' },
-  ];
-
   const blogPosts = [
   { title: 'Understanding Depression: Signs & Treatment', category: 'Mental Health', date: 'Mar 1, 2024', excerpt: 'Learn to recognize signs of depression and the treatment options available.', image: 'blog-image-1.png', slug: 'understanding-depression' },
   { title: 'Child Vaccination Schedule in Pakistan', category: 'Child Care', date: 'Feb 28, 2024', excerpt: 'A complete guide to vaccination schedules for children in Pakistan.', image: 'blog-image-2.png', slug: 'child-vaccination-schedule' },
@@ -34,7 +28,7 @@ export default function HealthcareHome() {
       <Values />
       <AboutSection />
       <Departments />
-      <Reviews reviews={reviews} />
+      <Reviews />
       <CTASection />
       <BlogSection posts={blogPosts} />
       <AppointmentSection />

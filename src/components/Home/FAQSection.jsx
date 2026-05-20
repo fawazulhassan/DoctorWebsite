@@ -15,23 +15,23 @@ export default function FAQSection({ items = defaultItems }) {
     <section className="py-8 md:py-16 lg:py-20 bg-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-12">
         <SectionTitle title="Usually Asked" subtitle="Questions & Answers" />
-        <div className="mt-6 md:mt-12 space-y-2">
+        <div className="mt-8 md:mt-12 space-y-4 md:space-y-2">
           {items.map((item, i) => (
-            <div key={i} className="border border-gray-200 rounded-lg overflow-hidden">
+            <div key={i} className="border border-gray-200 rounded-xl md:rounded-lg overflow-hidden">
               <button
                 type="button"
                 onClick={() => setOpenIndex(openIndex === i ? -1 : i)}
-                className="w-full flex items-center justify-between px-3 py-2 md:px-5 md:py-4 text-left font-medium text-gray-900 hover:bg-gray-50 text-xs md:text-base"
+                className="w-full flex items-center justify-between gap-3 px-4 py-4 md:px-5 md:py-4 text-left font-medium text-gray-900 hover:bg-gray-50 text-sm md:text-base leading-snug"
               >
                 {item.q}
                 <img
                   src={openIndex === i ? ASSET('faq-arrow-up.svg') : ASSET('faq-arrow-down.svg')}
                   alt=""
-                  className="w-3 h-3 md:w-4 md:h-4 shrink-0 ml-2"
+                  className="w-5 h-5 md:w-4 md:h-4 shrink-0"
                 />
               </button>
               {openIndex === i && (
-                <div className="px-3 py-2 md:px-5 md:py-4 pt-0 text-gray-600 text-xs md:text-sm border-t border-gray-100">
+                <div className="px-4 py-4 md:px-5 md:py-4 pt-0 text-gray-600 text-sm md:text-sm border-t border-gray-100 leading-relaxed">
                   {item.a}
                 </div>
               )}

@@ -50,26 +50,31 @@ const services = [
     title: 'Mental health services',
     body:
       'Comprehensive psychiatric care for depression, anxiety, OCD, bipolar disorder, schizophrenia, sleep problems, and more.',
+    hideBodyOnMobile: true,
   },
   {
     title: 'Child health & pediatrics',
     body:
       'General child health checkups, vaccination, digestive and respiratory issues, and growth monitoring for children.',
+    hideBodyOnMobile: true,
   },
   {
     title: 'Online video consultation',
     body:
       'Secure video consultations so patients in Lahore, Kasur, and beyond can receive expert advice and e‑prescriptions from home.',
+    hideBodyOnMobile: true,
   },
   {
     title: 'Home visit service (Lahore)',
     body:
       'Professional medical care at your doorstep for elderly patients, critically ill children, post‑hospital care, and newborn checkups.',
+    hideBodyOnMobile: true,
   },
   {
     title: 'Follow-up & ongoing care',
     body:
       'Medication management, progress monitoring, and structured follow‑ups that support long‑term mental and child health.',
+    hideBodyOnMobile: true,
   },
 ];
 
@@ -79,24 +84,28 @@ const whyFeatures = [
     title: 'Dual-specialty clinic',
     body:
       'Care for both adults and children under one roof, led by a psychiatrist and a pediatrician working together for family wellness.',
+    hideBodyOnMobile: true,
   },
   {
     icon: comprehensive,
     title: 'Comprehensive services',
     body:
       'From preventive checkups to complex mental health and pediatric conditions, we provide end‑to‑end care and structured follow‑ups.',
+    hideBodyOnMobile: true,
   },
   {
     icon: patient,
-    title: 'Patient-centered approach',
+    title: 'Patient-center approach',
     body:
       'Every treatment plan is tailored to your needs, with time given to listen, educate, and involve families in every decision.',
+    hideBodyOnMobile: true,
   },
   {
     icon: facilities,
     title: 'Accessible in Lahore & Kasur',
     body:
       'Online consultations, Lahore home visits, and Kasur clinic days make quality care accessible to patients across both cities.',
+    hideBodyOnMobile: true,
   },
 ];
 
@@ -144,14 +153,14 @@ const awards = [
 
 // ── Sub-components ────────────────────────────────────────────────
 
-function ServiceCard({ title, body }) {
+function ServiceCard({ title, body, hideBodyOnMobile }) {
   return (
     <div className="service-card">
       <div className="service-card__icon-wrap">
         <img src={calendarWhite} alt="service icon" />
       </div>
       <h3 className="service-card__title">{title}</h3>
-      <p className="service-card__body">{body}</p>
+      <p className={`service-card__body${hideBodyOnMobile ? ' service-card__body--hide-mobile' : ''}`}>{body}</p>
       <div className="service-card__arrow">
         <img src={arrowWhite} alt="arrow" />
       </div>
@@ -159,14 +168,14 @@ function ServiceCard({ title, body }) {
   );
 }
 
-function WhyFeature({ icon, title, body }) {
+function WhyFeature({ icon, title, body, hideBodyOnMobile }) {
   return (
     <div className="why-feature">
       <div className="why-feature__icon-wrap">
         <img src={icon} alt={title} />
       </div>
       <h4 className="why-feature__title">{title}</h4>
-      <p className="why-feature__body">{body}</p>
+      <p className={`why-feature__body${hideBodyOnMobile ? ' why-feature__body--hide-mobile' : ''}`}>{body}</p>
     </div>
   );
 }
@@ -241,7 +250,7 @@ export default function About() {
       </h2>
     </div>
     {services.map((s, i) => (
-      <ServiceCard key={i} title={s.title} body={s.body} />
+      <ServiceCard key={i} title={s.title} body={s.body} hideBodyOnMobile={s.hideBodyOnMobile} />
     ))}
   </div>
 </section>
@@ -256,7 +265,7 @@ export default function About() {
             <h2 className="about-why__heading">Why Choose Us</h2>
             <div className="about-why__grid">
               {whyFeatures.map((f, i) => (
-                <WhyFeature key={i} icon={f.icon} title={f.title} body={f.body} />
+                <WhyFeature key={i} icon={f.icon} title={f.title} body={f.body} hideBodyOnMobile={f.hideBodyOnMobile} />
               ))}
             </div>
           </div>

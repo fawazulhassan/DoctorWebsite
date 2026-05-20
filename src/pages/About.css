@@ -33,8 +33,8 @@
      position: absolute;
      bottom: 0;
      left: clamp(0px, 5vw, calc(30% - 360px));
-     width: clamp(160px, 40vw, 611px);
-     height: clamp(135px, 34vw, 516px);
+     width: clamp(160px, 50vw, 611px);
+     height: clamp(135px, 44vw, 516px);
      object-fit: contain;
      object-position: bottom;
      z-index: 2;
@@ -51,7 +51,7 @@
    .about-hero__heading {
      font-family: 'Inter', sans-serif;
      font-weight: 700;
-     font-size: clamp(14px, 3.5vw, 52.938px);
+     font-size: clamp(14px, 5.5vw, 52.938px);
      line-height: 1.2;
      color: #274760;
      margin: 0 0 clamp(4px, 1vw, 16px) 0;
@@ -63,6 +63,12 @@
      line-height: 1.5;
      color: #274760;
      margin: 0;
+   }
+
+   @media (max-width: 768px) {
+     .about-hero__subheading {
+       display: none;
+     }
    }
    
    /* ============ SECTION 2 — SERVICES ============ */
@@ -87,7 +93,7 @@
    .about-services__label {
      font-family: 'Inter', sans-serif;
      font-weight: 600;
-     font-size: clamp(9px, 1.7vw, 25.289px);
+     font-size: clamp(9px, 2.7vw, 25.289px);
      line-height: 1.35;
      color: #307bc4;
      text-transform: uppercase;
@@ -111,19 +117,19 @@
      overflow: hidden;
    }
    .service-card__icon-wrap {
-     width: clamp(18px, 2.8vw, 40px);
-     height: clamp(18px, 2.8vw, 40px);
+     width: clamp(18px, 4.2vw, 72px);
+     height: clamp(18px, 4.2vw, 72px);
      background: #307bc4;
      border-radius: 50%;
      display: flex;
      align-items: center;
      justify-content: center;
-     margin-bottom: clamp(8px, 2.5vw, 38px);
+     margin-bottom: clamp(8px, 3.2vw, 50px);
      flex-shrink: 0;
    }
    .service-card__icon-wrap img {
-     width: clamp(9px, 1.3vw, 19px);
-     height: clamp(9px, 1.3vw, 19px);
+     width: clamp(9px, 2.1vw, 36px);
+     height: clamp(9px, 2.1vw, 36px);
      object-fit: contain;
    }
    .service-card__title {
@@ -141,6 +147,28 @@
      line-height: 1.6;
      color: rgba(39, 71, 96, 0.52);
      margin: 0;
+   }
+
+   @media (max-width: 768px) {
+     .service-card__body--hide-mobile {
+       display: none;
+     }
+
+     .service-card__icon-wrap {
+       width: 40px;
+       height: 40px;
+       margin-bottom: 14px;
+     }
+
+     .service-card__icon-wrap img {
+       width: 20px;
+       height: 20px;
+     }
+
+     .service-card__title {
+       font-size: 16px;
+       line-height: 1.35;
+     }
    }
    .service-card__arrow {
      position: absolute;
@@ -205,20 +233,39 @@
      gap: clamp(12px, 2.6vw, 40px) clamp(10px, 2vw, 30px);
    }
    .why-feature__icon-wrap {
-     width: clamp(16px, 2.6vw, 40px);
-     height: clamp(16px, 2.6vw, 40px);
+     width: clamp(18px, 4.2vw, 72px);
+     height: clamp(18px, 4.2vw, 72px);
      background: #307bc4;
      border-radius: 50%;
      display: flex;
      align-items: center;
      justify-content: center;
-     margin-bottom: clamp(4px, 0.8vw, 12px);
+     margin-bottom: clamp(8px, 3.2vw, 50px);
+     flex-shrink: 0;
    }
    .why-feature__icon-wrap img {
-     width: clamp(8px, 1.2vw, 18px);
-     height: clamp(8px, 1.2vw, 18px);
+     width: clamp(9px, 2.1vw, 36px);
+     height: clamp(9px, 2.1vw, 36px);
      object-fit: contain;
    }
+
+   @media (max-width: 768px) {
+     .why-feature__body--hide-mobile {
+       display: none;
+     }
+
+     .why-feature__icon-wrap {
+       width: 40px;
+       height: 40px;
+       margin-bottom: 14px;
+     }
+
+     .why-feature__icon-wrap img {
+       width: 20px;
+       height: 20px;
+     }
+   }
+
    .why-feature__title {
      font-family: 'Inter', sans-serif;
      font-weight: 600;
@@ -227,6 +274,14 @@
      color: #274760;
      margin: 0 0 clamp(4px, 0.65vw, 10px) 0;
    }
+
+   @media (max-width: 768px) {
+     .why-feature__title {
+       font-size: 16px;
+       line-height: 1.35;
+     }
+   }
+
    .why-feature__body {
      font-family: 'Poppins', sans-serif;
      font-weight: 400;
@@ -422,6 +477,88 @@
      object-fit: contain;
      filter: brightness(0) invert(1);
    }
+
+   @media (max-width: 768px) {
+     .about-doctors {
+       padding: 32px 16px 48px;
+     }
+
+     .about-doctors__header {
+       margin-bottom: 32px;
+     }
+
+     .about-doctors__label {
+       font-size: 14px;
+     }
+
+     .about-doctors__heading {
+       font-size: 28px;
+       line-height: 1.2;
+     }
+
+     .about-doctors__grid {
+       grid-template-columns: 1fr;
+       gap: 24px;
+     }
+
+     .doctor-card {
+       padding-top: 60px;
+       max-width: 100%;
+     }
+
+     .doctor-card__photo-wrap {
+       width: 120px;
+       height: 120px;
+     }
+
+     .doctor-card__body {
+       min-height: auto;
+       padding: 70px 20px 24px;
+       border-radius: 12px;
+       box-shadow: 0 4px 21px 1px rgba(48, 123, 196, 0.1);
+     }
+
+     .doctor-card__name {
+       font-size: 18px;
+       font-weight: 700;
+       white-space: normal;
+       overflow: visible;
+       text-overflow: unset;
+     }
+
+     .doctor-card__title {
+       font-size: 14px;
+       font-weight: 600;
+       line-height: 1.4;
+     }
+
+     .doctor-card__desc {
+       display: none;
+     }
+
+     .doctor-card__link {
+       font-size: 14px;
+       margin-bottom: 16px;
+     }
+
+     .doctor-card__socials {
+       gap: 12px;
+     }
+
+     .social-btn {
+       width: 40px;
+       height: 40px;
+     }
+
+     .social-btn__icon {
+       font-size: 14px;
+     }
+
+     .social-btn__icon img {
+       width: 12px;
+       height: 12px;
+     }
+   }
    
    /* ============ SECTION 6 — GALLERY ============ */
    .about-gallery {
@@ -448,6 +585,18 @@
      color: #274760;
      margin: 0;
    }
+
+   @media (max-width: 768px) {
+     .about-gallery__label {
+       font-size: 14px;
+     }
+
+     .about-gallery__heading {
+       font-size: 28px;
+       line-height: 1.2;
+     }
+   }
+
    .about-gallery__new-grid {
      display: grid;
      grid-template-columns: 1fr clamp(120px, 31vw, 480px);
@@ -551,14 +700,51 @@
      height: clamp(15px, 3.27vw, 50px);
      object-fit: cover;
    }
+
    .award-card__name {
      font-family: 'Inter', sans-serif;
      font-weight: 400;
-     font-size: clamp(6px, 1.24vw, 19px);
+     font-size: clamp(11px, 1.24vw, 19px);
      line-height: 1.4;
      color: #000000;
      text-transform: uppercase;
      margin: 0;
+   }
+
+   @media (max-width: 768px) {
+     .about-awards__label {
+       font-size: 14px;
+     }
+
+     .about-awards__heading {
+       font-size: 28px;
+       line-height: 1.2;
+     }
+
+     .about-awards__subtitle {
+       display: none;
+     }
+
+     .award-card {
+       min-height: 56px;
+       height: auto;
+     }
+
+     .award-card__icon-wrap {
+       width: 40px;
+       height: 40px;
+       border-radius: 8px;
+     }
+
+     .award-card__icon-wrap img {
+       width: 20px;
+       height: 24px;
+     }
+
+     .award-card__name {
+       font-size: 12px;
+       line-height: 1.35;
+     }
    }
    
    /* ============ SECTION 8 — CTA BANNER ============ */
@@ -610,4 +796,15 @@
      color: #ffffff;
      margin: 0 auto;
      max-width: clamp(200px, 35vw, 543px);
+   }
+
+   @media (max-width: 768px) {
+     .about-cta__heading {
+       font-size: 28px;
+       line-height: 1.2;
+     }
+
+     .about-cta__subheading {
+       display: none;
+     }
    }

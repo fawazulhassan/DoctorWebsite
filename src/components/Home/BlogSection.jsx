@@ -13,9 +13,9 @@ export default function BlogSection({ posts = defaultPosts }) {
     <section className="py-8 md:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <SectionTitle title="Latest Update" subtitle="Our Blog" />
-        <div className="mt-6 md:mt-12 grid grid-cols-3 gap-3 md:gap-6">
+        <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6">
           {posts.map((post) => (
-            <article key={post.title} className="bg-white border border-gray-100 rounded-lg shadow-md overflow-hidden">
+            <article key={post.title} className="bg-white border border-gray-100 rounded-xl md:rounded-lg shadow-md overflow-hidden">
 
               {/* Blog image */}
               <div className="aspect-video bg-gray-200">
@@ -31,19 +31,19 @@ export default function BlogSection({ posts = defaultPosts }) {
               </div>
 
               {/* Blog content */}
-              <div className="p-2 sm:p-3 md:p-5">
-                <p className="text-xs text-gray-500 hidden sm:block">
+              <div className="p-5 md:p-5">
+                <p className="text-sm text-gray-500 md:text-xs">
                   {post.category} · {post.date}
                 </p>
-                <h3 className="mt-1 md:mt-2 font-bold text-gray-900 text-xs sm:text-sm md:text-base leading-tight">
+                <h3 className="mt-2 md:mt-2 font-bold text-gray-900 text-base md:text-base leading-snug">
                   {post.title}
                 </h3>
-                <p className="mt-1 md:mt-2 text-xs text-gray-600 hidden md:block">
+                <p className="mt-2 text-sm text-gray-600 leading-relaxed md:text-xs md:mt-2">
                   {post.excerpt}
                 </p>
                 <Link
                   to={post.slug ? `/blog/${post.slug}` : '/blog'}
-                  className="inline-block mt-1 md:mt-4 text-primary font-medium text-xs md:text-sm hover:underline"
+                  className="inline-block mt-4 md:mt-4 text-primary font-medium text-sm md:text-sm hover:underline"
                 >
                   Read More
                 </Link>
