@@ -18,6 +18,30 @@ const serviceDetails = [
   { title: 'Home Visit', desc: 'Professional care at your doorstep. Lahore areas covered. Zone-based pricing.', to: '/home-visit' },
 ];
 
+const serviceCardClass =
+  'flex items-center gap-1.5 sm:gap-2 md:gap-4 bg-white rounded-lg shadow pl-2 pr-1.5 py-1.5 sm:px-3 sm:py-2 md:px-4 md:py-4 hover:shadow-md transition min-w-0';
+
+/** Solid blue circle (image 1) with service icon centered on top */
+const ServiceIcon = ({ icon }) => {
+  const isAward = icon === 'dept-award-icon.svg';
+  return (
+    <div
+      className="relative w-8 h-8 md:w-12 md:h-12 rounded-full shrink-0 overflow-hidden flex items-center justify-center"
+      style={{ backgroundColor: '#307BC4' }}
+    >
+      <img
+        src={ASSET(icon)}
+        alt=""
+        className={`relative z-10 object-contain ${
+          isAward
+            ? 'w-5 h-5 md:w-8 md:h-8'
+            : 'w-4 h-4 md:w-5 md:h-5 brightness-0 invert'
+        }`}
+      />
+    </div>
+  );
+};
+
 export default function Departments() {
   return (
     <>
@@ -25,41 +49,37 @@ export default function Departments() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
           <SectionTitle title="Our Services" subtitle="What We Offer" />
 
-          <div className="mt-12 space-y-4">
+          <div className="mt-8 sm:mt-12 space-y-2 sm:space-y-3 md:space-y-4">
 
             {/* First row — always 4 items */}
-<div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-2 sm:gap-4">
               {clinicServices.slice(0, 4).map((d) => (
                 <Link
                   key={d.name}
                   to={d.to}
-                  className="flex items-center gap-2 md:gap-4 bg-white rounded-lg shadow p-3 md:p-4 hover:shadow-md transition"
+                  className={serviceCardClass}
                 >
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <img src={ASSET(d.icon)} alt="" className="w-4 h-4 md:w-6 md:h-6 object-contain" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-xs md:text-base">{d.name}</p>
-                    <p className="text-xs text-gray-600 hidden sm:block">{d.desc}</p>
+                  <ServiceIcon icon={d.icon} />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-900 text-xs md:text-base leading-tight">{d.name}</p>
+                    <p className="text-xs text-gray-600 hidden sm:block mt-0.5">{d.desc}</p>
                   </div>
                 </Link>
               ))}
             </div>
 
             {/* Second row — 2 items centered */}
-<div className="grid grid-cols-2 gap-4 w-full lg:w-1/2 mx-auto">
+            <div className="grid grid-cols-2 gap-x-2 gap-y-2 sm:gap-4 w-full lg:w-1/2 mx-auto">
               {clinicServices.slice(4).map((d) => (
                 <Link
                   key={d.name}
                   to={d.to}
-                  className="flex items-center gap-2 md:gap-4 bg-white rounded-lg shadow p-3 md:p-4 hover:shadow-md transition"
+                  className={serviceCardClass}
                 >
-                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <img src={ASSET(d.icon)} alt="" className="w-4 h-4 md:w-6 md:h-6 object-contain" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 text-xs md:text-base">{d.name}</p>
-                    <p className="text-xs text-gray-600 hidden sm:block">{d.desc}</p>
+                  <ServiceIcon icon={d.icon} />
+                  <div className="min-w-0 flex-1">
+                    <p className="font-semibold text-gray-900 text-xs md:text-base leading-tight">{d.name}</p>
+                    <p className="text-xs text-gray-600 hidden sm:block mt-0.5">{d.desc}</p>
                   </div>
                 </Link>
               ))}

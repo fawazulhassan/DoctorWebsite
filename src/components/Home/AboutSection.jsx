@@ -29,9 +29,9 @@ export default function AboutSection() {
                 alt=""
                 style={{
                   position: 'absolute',
-                  bottom: '-4%',
-                  right: '-8%',
-                  width: 'clamp(28px, 12vw, 176px)',
+                  bottom: '-8%',
+                  right: '-12%',
+                  width: 'clamp(48px, 18vw, 200px)',
                   height: 'auto',
                   objectFit: 'contain',
                 }}
@@ -44,9 +44,9 @@ export default function AboutSection() {
                 alt="FCPS Qualified"
                 style={{
                   position: 'absolute',
-                  top: '-4%',
-                  right: '-6%',
-                  width: 'clamp(20px, 8vw, 96px)',
+                  top: '-6%',
+                  right: '-10%',
+                  width: 'clamp(36px, 12vw, 104px)',
                   height: 'auto',
                   objectFit: 'contain',
                 }}
@@ -58,52 +58,44 @@ export default function AboutSection() {
 
           {/* Text Column */}
           <div>
-            <h2 className="font-bold text-gray-900"
-              style={{ fontSize: 'clamp(11px, 2.2vw, 30px)', lineHeight: 1.25 }}>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
               About Us
             </h2>
 
-            <p className="text-primary font-medium mt-1"
-              style={{ fontSize: 'clamp(8px, 1.2vw, 16px)' }}>
+            <p className="text-primary font-medium mt-1 sm:mt-2 text-base sm:text-lg md:text-xl">
               We make a difference
             </p>
 
-            <div className="mt-1 md:mt-4 flex gap-1 md:gap-2">
+            <div className="mt-2 sm:mt-3 md:mt-4 flex gap-2">
               <img
                 src={ASSET('about-arrow-right.svg')}
                 alt=""
-                style={{ width: 'clamp(8px, 1.3vw, 20px)', height: 'clamp(8px, 1.3vw, 20px)' }}
-                className="shrink-0 mt-0.5"
+                className="w-5 h-5 sm:w-5 sm:h-5 shrink-0 mt-0.5"
               />
-              <p className="text-gray-700 font-medium"
-                style={{ fontSize: 'clamp(7px, 1.05vw, 14px)', lineHeight: 1.5 }}>
+              <p className="text-gray-700 font-medium text-sm sm:text-base md:text-lg leading-relaxed">
                 {CLINIC.name} is dedicated to providing accessible mental health and pediatric care for Lahore and Kasur communities.
               </p>
             </div>
 
-            <p className="mt-1 md:mt-4 text-gray-600 leading-relaxed"
-              style={{ fontSize: 'clamp(6px, 0.95vw, 14px)', lineHeight: 1.6 }}>
-              Our mission is to make quality healthcare accessible and compassionate. With our dual-location model, we serve patients in Lahore (Harbanspura) and Kasur (Daulat Nagar) through clinic visits, online video consultation, and home visits.
-            </p>
+            <div className="hidden sm:block">
+              <p className="mt-3 md:mt-4 text-gray-600 text-sm md:text-base leading-relaxed">
+                Our mission is to make quality healthcare accessible and compassionate. With our dual-location model, we serve patients in Lahore (Harbanspura) and Kasur (Daulat Nagar) through clinic visits, online video consultation, and home visits.
+              </p>
 
-            <p className="mt-1 md:mt-3 text-gray-600 leading-relaxed"
-              style={{ fontSize: 'clamp(6px, 0.95vw, 14px)', lineHeight: 1.6 }}>
-              We believe in treating the whole person—mind, body, and spirit—and in building lasting relationships with our patients and their families.
-            </p>
+              <p className="mt-2 md:mt-3 text-gray-600 text-sm md:text-base leading-relaxed">
+                We believe in treating the whole person—mind, body, and spirit—and in building lasting relationships with our patients and their families.
+              </p>
+            </div>
 
             <Link
               to="/about"
-              className="mt-2 md:mt-6 inline-flex items-center gap-1 md:gap-2 rounded-lg bg-primary text-white font-medium hover:bg-primary-hover"
-              style={{
-                padding: 'clamp(4px, 0.65vw, 12px) clamp(8px, 1.3vw, 24px)',
-                fontSize: 'clamp(7px, 1.05vw, 16px)',
-              }}
+              className="mt-3 sm:mt-4 md:mt-6 inline-flex items-center gap-2 rounded-lg bg-primary text-white text-base sm:text-lg font-medium hover:bg-primary-hover px-5 py-2.5 sm:px-6 sm:py-3"
             >
               Learn More
               <img
                 src={ASSET('button-arrow-right.svg')}
                 alt=""
-                style={{ width: 'clamp(8px, 1.3vw, 20px)', height: 'clamp(8px, 1.3vw, 20px)' }}
+                className="w-4 h-4 sm:w-5 sm:h-5"
               />
             </Link>
           </div>
