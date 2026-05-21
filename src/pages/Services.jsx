@@ -9,36 +9,48 @@ const arrowWhite = '/departments/arrow-white.svg';
 
 // ── Data — Services data (aligned with MASTER.md §5 Services Page) ─────────────
 const DEPT_BODY_MENTAL =
-  'Comprehensive psychiatric care for depression, anxiety, OCD, bipolar disorder, schizophrenia, stress, sleep disorders, and other mental health conditions, using medication, counseling, and therapy with full confidentiality and planned follow-ups.';
+  'Comprehensive psychiatric care for depression, anxiety, OCD, bipolar disorder, schizophrenia, stress';
+const DEPT_BODY_MENTAL_MORE =
+  ', sleep disorders, and other mental health conditions, using medication, counseling, and therapy with full confidentiality and planned follow-ups.';
 const DEPT_BODY_PEDIATRIC =
-  'Complete child healthcare including preventive care and vaccines, growth and weight monitoring, acute illness treatment, chronic condition management, and nutrition and development counseling with structured parent education.';
+  'Complete child healthcare including preventive care and vaccines, growth and weight monitoring';
+const DEPT_BODY_PEDIATRIC_MORE =
+  ', acute illness treatment, chronic condition management, and nutrition and development counseling with structured parent education.';
 const DEPT_BODY_ONLINE =
-  'Book your slot, complete payment, and join a secure video call to receive expert psychiatric or pediatric advice from home anywhere in Pakistan, with an e‑prescription and summary shared after the consultation.';
+  'Book your slot, complete payment, and join a secure video call to receive expert psychiatric or pediatric ';
+const DEPT_BODY_ONLINE_MORE =
+  'advice from home anywhere in Pakistan, with an e‑prescription and summary shared after the consultation.';
 const DEPT_BODY_HOME =
-  'Lahore-only home visits for elderly or home-bound patients, critically ill children, post-hospital care, and newborn checkups, with charges that combine consultation time and travel in a clear, zone-based structure.';
+  'Lahore-only home visits for elderly or home-bound patients, critically ill children';
+const DEPT_BODY_HOME_MORE =
+  ', post-hospital care, and newborn checkups, with charges that combine consultation time and travel in a clear, zone-based structure.';
 const DEPT_BODY_FOLLOWUP =
-  'Ongoing medication management and progress review through scheduled follow-ups, with shorter review visits and remote check-ins where appropriate to keep your treatment on track.';
+  'Ongoing medication management and progress review through scheduled follow-ups';
+const DEPT_BODY_FOLLOWUP_MORE =
+  ', with shorter review visits and remote check-ins where appropriate to keep your treatment on track.';
 const DEPT_BODY_EMERGENCY =
-  '24/7 emergency consultation access for urgent psychiatric and pediatric concerns via call, WhatsApp, or the emergency form, with priority triage and guidance on immediate steps or hospital referral.';
+  '24/7 emergency consultation access for urgent psychiatric and pediatric concerns via call, WhatsApp';
+const DEPT_BODY_EMERGENCY_MORE =
+  ', or the emergency form, with priority triage and guidance on immediate steps or hospital referral.';
 
 const departmentRows = [
   // Row 1
   [
-    { title: ['Mental health', 'services'],        body: DEPT_BODY_MENTAL,    link: '/doctor/rizwan-shafiq', linkText: 'Meet Dr. Rizwan Shafiq' },
-    { title: ['Child health', '& pediatrics'],     body: DEPT_BODY_PEDIATRIC, link: '/doctor/faiza-malik',   linkText: 'Meet Dr. Faiza Malik' },
-    { title: ['Online video', 'consultation'],     body: DEPT_BODY_ONLINE,    link: '/online-consultation',  linkText: 'Learn more' },
+    { title: ['Mental health', 'services'],        body: DEPT_BODY_MENTAL, bodyMore: DEPT_BODY_MENTAL_MORE, link: '/doctor/rizwan-shafiq', linkText: 'Meet Dr. Rizwan Shafiq' },
+    { title: ['Child health', '& pediatrics'],     body: DEPT_BODY_PEDIATRIC, bodyMore: DEPT_BODY_PEDIATRIC_MORE, link: '/doctor/faiza-malik',   linkText: 'Meet Dr. Faiza Malik' },
+    { title: ['Online video', 'consultation'],     body: DEPT_BODY_ONLINE, bodyMore: DEPT_BODY_ONLINE_MORE, link: '/online-consultation',  linkText: 'Learn more' },
   ],
   // Row 2
   [
-    { title: ['Home visit service', '(Lahore)'],   body: DEPT_BODY_HOME,      link: '/home-visit',           linkText: 'Learn more' },
-    { title: ['Follow-up &', 'ongoing care'],      body: DEPT_BODY_FOLLOWUP,  link: null,                    linkText: null },
-    { title: ['Emergency', 'consultation'],        body: DEPT_BODY_EMERGENCY, link: '/emergency',            linkText: 'Emergency form' },
+    { title: ['Home visit service', '(Lahore)'],   body: DEPT_BODY_HOME, bodyMore: DEPT_BODY_HOME_MORE, link: '/home-visit',           linkText: 'Learn more' },
+    { title: ['Follow-up &', 'ongoing care'],      body: DEPT_BODY_FOLLOWUP, bodyMore: DEPT_BODY_FOLLOWUP_MORE, link: null,                    linkText: null },
+    { title: ['Emergency', 'consultation'],        body: DEPT_BODY_EMERGENCY, bodyMore: DEPT_BODY_EMERGENCY_MORE, link: '/emergency',            linkText: 'Emergency form' },
   ],
 ];
 
 // ── Sub-components ────────────────────────────────────────────────
 
-function DeptCard({ title, body, link, linkText, tall = false }) {
+function DeptCard({ title, body, bodyMore, link, linkText, tall = false }) {
   const arrow = (
     <div className="dept-card__arrow" aria-label="Learn more">
       <img src={arrowWhite} alt="" aria-hidden="true" />
@@ -63,7 +75,10 @@ function DeptCard({ title, body, link, linkText, tall = false }) {
           ))}
         </h3>
       </div>
-      <p className="dept-card__body">{body}</p>
+      <p className="dept-card__body">
+        {body}
+        {bodyMore && <span className="dept-card__body-more">{bodyMore}</span>}
+      </p>
       {link && (
         <a href={link} className="dept-card__link">
           {linkText}
@@ -114,6 +129,7 @@ function DeptCardsGrid() {
               key={colIdx}
               title={card.title}
               body={card.body}
+              bodyMore={card.bodyMore}
               link={card.link}
               linkText={card.linkText}
               tall={card.tall || false}

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import DeleteAppointmentModal from '../../components/Admin/DeleteAppointmentModal';
 import { supabase } from '../../lib/supabase';
+import { deleteAppointmentById } from '../../utils/deleteAppointment';
 
 const STATUS_OPTIONS = ['pending', 'confirmed', 'completed', 'cancelled'];
 
@@ -37,10 +39,12 @@ function formatTime(t) {
 }
 
 export default function DoctorAppointments() {
-  const { doctorSlug } = useAuth();
+  const { doctorSlug, isAdmin } = useAuth();
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!doctorSlug) {
@@ -60,6 +64,17 @@ export default function DoctorAppointments() {
       .order('appointment_time', { ascending: false });
     if (!error) setList(data || []);
     setLoading(false);
+  }
+
+  async function confirmDelete() {
+    if (!deleteId) return;
+    setDeleting(true);
+    const { error } = await deleteAppointmentById(deleteId);
+    if (!error) {
+      setList((prev) => prev.filter((a) => a.id !== deleteId));
+    }
+    setDeleting(false);
+    setDeleteId(null);
   }
 
   async function updateStatus(appointmentId, newStatus) {
@@ -146,14 +161,25 @@ export default function DoctorAppointments() {
                       )}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      {a.appointment_type === 'online' && a.status !== 'cancelled' && a.status !== 'completed' && (
-                        <Link
-                          to={`/doctor/consultation/${a.id}`}
-                          className="text-sm font-medium text-primary hover:underline"
-                        >
-                          Start
-                        </Link>
-                      )}
+                      <div className="flex flex-col items-end gap-1">
+                        {a.appointment_type === 'online' && a.status !== 'cancelled' && a.status !== 'completed' && (
+                          <Link
+                            to={`/doctor/consultation/${a.id}`}
+                            className="text-sm font-medium text-primary hover:underline"
+                          >
+                            Start
+                          </Link>
+                        )}
+                        {isAdmin && (
+                          <button
+                            type="button"
+                            onClick={() => setDeleteId(a.id)}
+                            className="text-xs font-medium text-red-600 hover:text-red-800"
+                          >
+                            Delete Permanently
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -162,6 +188,13 @@ export default function DoctorAppointments() {
           </div>
         )}
       </div>
+
+      <DeleteAppointmentModal
+        open={Boolean(deleteId)}
+        deleting={deleting}
+        onClose={() => !deleting && setDeleteId(null)}
+        onConfirm={confirmDelete}
+      />
     </section>
   );
 }

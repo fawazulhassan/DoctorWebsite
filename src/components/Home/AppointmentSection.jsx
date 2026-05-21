@@ -5,16 +5,18 @@ export default function AppointmentSection() {
   return (
     <section className="py-8 md:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-      <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-center text-gray-900">Appointment</h2>
-      <p className="text-center text-gray-600 mt-1 md:mt-2 text-sm sm:text-base md:text-lg">Book an Appointment</p>
+      <h2 className="text-2xl sm:text-xl md:text-2xl lg:text-3xl font-bold text-center text-gray-900">Appointment</h2>
+      <p className="text-center text-gray-600 mt-1 md:mt-2 text-base sm:text-base md:text-lg">Book an Appointment</p>
 
-        <div className="mt-4 md:mt-12 grid grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-12">
+        <div className="mt-4 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-6 md:gap-8 lg:gap-12 items-start">
 
-          {/* Form — always left */}
-          <BookingForm />
+          {/* Form — centered on small screens only */}
+          <div className="w-full max-w-md mx-auto md:max-w-none md:mx-0">
+            <BookingForm />
+          </div>
 
-          {/* Doctor image — always right, scales down but never moves */}
-          <div className="flex justify-center items-start">
+          {/* Doctor image — hidden on small screens */}
+          <div className="hidden md:flex justify-center items-start">
           <img
   src={ASSET('appointment-doctor.png')}
   alt=""

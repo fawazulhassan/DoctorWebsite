@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import DeleteAppointmentModal from '../../components/Admin/DeleteAppointmentModal';
 import { supabase } from '../../lib/supabase';
+import { deleteAppointmentById } from '../../utils/deleteAppointment';
 
 const STATUS_LABELS = {
   pending: 'Scheduled',
@@ -22,9 +24,11 @@ function formatTime(t) {
 }
 
 export default function DoctorDashboard() {
-  const { doctorSlug } = useAuth();
+  const { doctorSlug, isAdmin } = useAuth();
   const [todayList, setTodayList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!doctorSlug) {
@@ -47,6 +51,17 @@ export default function DoctorDashboard() {
       .order('appointment_time', { ascending: true });
     if (!error) setTodayList(data || []);
     setLoading(false);
+  }
+
+  async function confirmDelete() {
+    if (!deleteId) return;
+    setDeleting(true);
+    const { error } = await deleteAppointmentById(deleteId);
+    if (!error) {
+      setTodayList((prev) => prev.filter((a) => a.id !== deleteId));
+    }
+    setDeleting(false);
+    setDeleteId(null);
   }
 
   if (!doctorSlug) {
@@ -105,17 +120,35 @@ export default function DoctorDashboard() {
                     <p className="text-xs text-gray-500">{a.patient_phone}</p>
                   )}
                 </div>
-                <Link
-                  to={`/doctor/consultation/${a.id}`}
-                  className="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90"
-                >
-                  Start Consultation
-                </Link>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Link
+                    to={`/doctor/consultation/${a.id}`}
+                    className="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary/90"
+                  >
+                    Start Consultation
+                  </Link>
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      onClick={() => setDeleteId(a.id)}
+                      className="px-4 py-2 rounded-lg border border-red-300 text-red-600 text-sm font-medium hover:bg-red-50"
+                    >
+                      Delete Permanently
+                    </button>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
         )}
       </div>
+
+      <DeleteAppointmentModal
+        open={Boolean(deleteId)}
+        deleting={deleting}
+        onClose={() => !deleting && setDeleteId(null)}
+        onConfirm={confirmDelete}
+      />
     </section>
   );
 }

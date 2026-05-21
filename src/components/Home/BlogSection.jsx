@@ -13,12 +13,12 @@ export default function BlogSection({ posts = defaultPosts }) {
     <section className="py-8 md:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <SectionTitle title="Latest Update" subtitle="Our Blog" />
-        <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6">
+        <div className="mt-6 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {posts.map((post) => (
-            <article key={post.title} className="bg-white border border-gray-100 rounded-xl md:rounded-lg shadow-md overflow-hidden">
+            <article key={post.title} className="bg-white border border-gray-100 rounded-lg shadow-sm md:shadow-md overflow-hidden">
 
-              {/* Blog image */}
-              <div className="aspect-video bg-gray-200">
+              {/* Blog image — shorter on mobile */}
+              <div className="aspect-[2/1] md:aspect-video bg-gray-200">
                 <img
                   src={ASSET(post.image)}
                   alt=""
@@ -31,19 +31,19 @@ export default function BlogSection({ posts = defaultPosts }) {
               </div>
 
               {/* Blog content */}
-              <div className="p-5 md:p-5">
-                <p className="text-sm text-gray-500 md:text-xs">
+              <div className="p-3.5 sm:p-4 md:p-5">
+                <p className="text-xs text-gray-500">
                   {post.category} · {post.date}
                 </p>
-                <h3 className="mt-2 md:mt-2 font-bold text-gray-900 text-base md:text-base leading-snug">
+                <h3 className="mt-1.5 md:mt-2 font-bold text-gray-900 text-sm sm:text-base leading-snug line-clamp-2">
                   {post.title}
                 </h3>
-                <p className="mt-2 text-sm text-gray-600 leading-relaxed md:text-xs md:mt-2">
+                <p className="mt-1.5 md:mt-2 text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-2 md:line-clamp-none">
                   {post.excerpt}
                 </p>
                 <Link
                   to={post.slug ? `/blog/${post.slug}` : '/blog'}
-                  className="inline-block mt-4 md:mt-4 text-primary font-medium text-sm md:text-sm hover:underline"
+                  className="inline-block mt-2 md:mt-4 text-primary font-medium text-xs sm:text-sm hover:underline"
                 >
                   Read More
                 </Link>

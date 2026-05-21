@@ -92,12 +92,12 @@ export default function Hero() {
 
             {/* Hotline */}
             <div className="sm:order-1 flex items-center gap-1.5 sm:gap-2 md:gap-4 shrink-0">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-[#307BC4] flex items-center justify-center shrink-0">
-                <img src={ASSET('contact-phone.svg')} alt="" className="w-3 h-3 md:w-5 md:h-5 invert" />
+              <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-[#307BC4] flex items-center justify-center shrink-0">
+                <img src={ASSET('contact-phone.svg')} alt="" className="w-4 h-4 sm:w-3 sm:h-3 md:w-5 md:h-5 invert" />
               </div>
               <div className="min-w-0">
-                <p className="font-semibold text-gray-900 text-[10px] sm:text-xs md:text-sm leading-tight">Hotline</p>
-                <a href={`tel:${CLINIC.phone}`} className="text-[10px] sm:text-xs md:text-sm text-gray-500 hover:text-primary whitespace-nowrap">{CLINIC.phone}</a>
+                <p className="font-semibold text-gray-900 text-xs xs:text-sm sm:text-xs md:text-sm leading-tight">Hotline</p>
+                <a href={`tel:${CLINIC.phone}`} className="text-xs xs:text-sm sm:text-xs md:text-sm text-gray-500 hover:text-primary whitespace-nowrap">{CLINIC.phone}</a>
               </div>
             </div>
 
@@ -105,12 +105,12 @@ export default function Hero() {
 
             {/* Location — between hotline and button on mobile (one row) */}
             <div className="order-2 sm:order-5 flex items-center gap-1.5 sm:gap-2 md:gap-4 min-w-0 flex-1 sm:flex-initial px-0.5 sm:px-0">
-              <div className="w-7 h-7 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-[#307BC4] flex items-center justify-center shrink-0">
-                <img src={ASSET('contact-location.svg')} alt="" className="w-3 h-3 md:w-5 md:h-5 invert" />
+              <div className="w-8 h-8 xs:w-9 xs:h-9 sm:w-8 sm:h-8 md:w-12 md:h-12 rounded-full bg-[#307BC4] flex items-center justify-center shrink-0">
+                <img src={ASSET('contact-location.svg')} alt="" className="w-4 h-4 sm:w-3 sm:h-3 md:w-5 md:h-5 invert" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="font-semibold text-gray-900 text-[10px] sm:text-xs md:text-sm leading-tight">Location</p>
-                <p className="text-[10px] sm:text-xs md:text-sm text-gray-500 truncate sm:whitespace-normal">
+                <p className="font-semibold text-gray-900 text-xs xs:text-sm sm:text-xs md:text-sm leading-tight">Location</p>
+                <p className="text-xs xs:text-sm sm:text-xs md:text-sm text-gray-500 truncate sm:whitespace-normal">
                   <span className="sm:hidden">{locationLabelMobile}</span>
                   <span className="hidden sm:inline">{locationAddress}</span>
                 </p>

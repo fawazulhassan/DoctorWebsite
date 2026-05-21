@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import SectionTitle from '../components/Shared/SectionTitle';
+import DeleteAppointmentModal from '../components/Admin/DeleteAppointmentModal';
 import { supabase } from '../lib/supabase';
+import { deleteAppointmentById } from '../utils/deleteAppointment';
 
 export default function AdminPatients() {
   const [patients, setPatients] = useState([]);
@@ -9,6 +11,8 @@ export default function AdminPatients() {
   const [expandedId, setExpandedId] = useState(null);
   const [appointments, setAppointments] = useState([]);
   const [apptLoading, setApptLoading] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetchPatients();
@@ -38,6 +42,17 @@ export default function AdminPatients() {
       .order('appointment_date', { ascending: false });
     setAppointments(data || []);
     setApptLoading(false);
+  }
+
+  async function confirmDelete() {
+    if (!deleteId) return;
+    setDeleting(true);
+    const { error } = await deleteAppointmentById(deleteId);
+    if (!error) {
+      setAppointments((prev) => prev.filter((a) => a.id !== deleteId));
+    }
+    setDeleting(false);
+    setDeleteId(null);
   }
 
   const filtered = patients.filter((p) => {
@@ -130,6 +145,7 @@ export default function AdminPatients() {
                       <th className="px-3 py-2 font-medium">Service</th>
                       <th className="px-3 py-2 font-medium">Phone Number</th>
                       <th className="px-3 py-2 font-medium">Status</th>
+                      <th className="px-3 py-2 font-medium">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
@@ -150,6 +166,15 @@ export default function AdminPatients() {
                             {a.status || 'pending'}
                           </span>
                         </td>
+                        <td className="px-3 py-2">
+                          <button
+                            type="button"
+                            onClick={() => setDeleteId(a.id)}
+                            className="text-red-600 hover:text-red-800 text-xs font-medium"
+                          >
+                            Delete Permanently
+                          </button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -159,6 +184,13 @@ export default function AdminPatients() {
           </div>
         )}
       </div>
+
+      <DeleteAppointmentModal
+        open={Boolean(deleteId)}
+        deleting={deleting}
+        onClose={() => !deleting && setDeleteId(null)}
+        onConfirm={confirmDelete}
+      />
     </section>
   );
 }

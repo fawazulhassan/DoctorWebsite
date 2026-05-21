@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SectionTitle from '../components/Shared/SectionTitle';
 import SlotEditor from '../components/Shared/SlotEditor';
+import DoctorEmailCard from '../components/Admin/DoctorEmailCard';
 import { supabase } from '../lib/supabase';
 import { DOCTORS } from '../constants/appointments';
 import { DR_RIZWAN_CONDITIONS, DR_FAIZA_SERVICES } from '../constants/doctors';
@@ -45,7 +46,7 @@ export default function AdminDoctors() {
   return (
     <section className="py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-        <SectionTitle title="Admin — Doctors" subtitle="Manage doctor weekly time slots" />
+        <SectionTitle title="Admin — Doctors" subtitle="Manage doctor emails and weekly time slots" />
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {DOCTORS.map((doc) => {
@@ -62,6 +63,8 @@ export default function AdminDoctors() {
                   </div>
                   <span className="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">Active</span>
                 </div>
+
+                <DoctorEmailCard slug={doc.value} />
 
                 <div className="mb-4">
                   <p className="text-xs font-medium text-gray-500 uppercase mb-1">Scheduled Days</p>

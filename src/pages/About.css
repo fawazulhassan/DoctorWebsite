@@ -480,56 +480,58 @@
 
    @media (max-width: 768px) {
      .about-doctors {
-       padding: 32px 16px 48px;
+       padding: 24px 16px 40px;
      }
 
      .about-doctors__header {
-       margin-bottom: 32px;
+       margin-bottom: 20px;
      }
 
      .about-doctors__label {
-       font-size: 14px;
+       font-size: 12px;
      }
 
      .about-doctors__heading {
-       font-size: 28px;
+       font-size: 22px;
        line-height: 1.2;
      }
 
      .about-doctors__grid {
        grid-template-columns: 1fr;
-       gap: 24px;
+       gap: 14px;
      }
 
      .doctor-card {
-       padding-top: 60px;
+       padding-top: 44px;
        max-width: 100%;
      }
 
      .doctor-card__photo-wrap {
-       width: 120px;
-       height: 120px;
+       width: 88px;
+       height: 88px;
      }
 
      .doctor-card__body {
        min-height: auto;
-       padding: 70px 20px 24px;
-       border-radius: 12px;
-       box-shadow: 0 4px 21px 1px rgba(48, 123, 196, 0.1);
+       padding: 52px 14px 16px;
+       border-radius: 10px;
+       box-shadow: 0 2px 14px 0 rgba(48, 123, 196, 0.1);
      }
 
      .doctor-card__name {
-       font-size: 18px;
+       font-size: 15px;
        font-weight: 700;
        white-space: normal;
        overflow: visible;
        text-overflow: unset;
+       margin-bottom: 4px;
      }
 
      .doctor-card__title {
-       font-size: 14px;
-       font-weight: 600;
-       line-height: 1.4;
+       font-size: 12px;
+       font-weight: 500;
+       line-height: 1.35;
+       margin-bottom: 8px;
      }
 
      .doctor-card__desc {
@@ -537,26 +539,26 @@
      }
 
      .doctor-card__link {
-       font-size: 14px;
-       margin-bottom: 16px;
+       font-size: 12px;
+       margin-bottom: 10px;
      }
 
      .doctor-card__socials {
-       gap: 12px;
+       gap: 8px;
      }
 
      .social-btn {
-       width: 40px;
-       height: 40px;
+       width: 32px;
+       height: 32px;
      }
 
      .social-btn__icon {
-       font-size: 14px;
+       font-size: 11px;
      }
 
      .social-btn__icon img {
-       width: 12px;
-       height: 12px;
+       width: 10px;
+       height: 10px;
      }
    }
    

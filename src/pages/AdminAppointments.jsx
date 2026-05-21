@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import SectionTitle from '../components/Shared/SectionTitle';
+import DeleteAppointmentModal from '../components/Admin/DeleteAppointmentModal';
 import { supabase } from '../lib/supabase';
 import { DOCTORS } from '../constants/appointments';
+import { deleteAppointmentById } from '../utils/deleteAppointment';
 
 const STATUS_OPTIONS = ['pending', 'confirmed', 'completed', 'cancelled'];
 
@@ -19,6 +21,8 @@ export default function AdminAppointments() {
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({});
   const [cancelId, setCancelId] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetchAppointments();
@@ -82,6 +86,17 @@ export default function AdminAppointments() {
       );
     }
     setCancelId(null);
+  }
+
+  async function confirmDelete() {
+    if (!deleteId) return;
+    setDeleting(true);
+    const { error } = await deleteAppointmentById(deleteId);
+    if (!error) {
+      setAppointments((prev) => prev.filter((a) => a.id !== deleteId));
+    }
+    setDeleting(false);
+    setDeleteId(null);
   }
 
   const doctorLabel = (slug) => DOCTORS.find((d) => d.value === slug)?.label || slug || '—';
@@ -166,11 +181,18 @@ export default function AdminAppointments() {
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <button onClick={() => startEdit(a)} className="text-primary hover:text-primary-hover text-xs font-medium">Edit</button>
                       {a.status !== 'cancelled' && (
                         <button onClick={() => setCancelId(a.id)} className="text-red-600 hover:text-red-800 text-xs font-medium">Cancel</button>
                       )}
+                      <button
+                        type="button"
+                        onClick={() => setDeleteId(a.id)}
+                        className="text-red-600 hover:text-red-800 text-xs font-medium"
+                      >
+                        Delete Permanently
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -214,6 +236,13 @@ export default function AdminAppointments() {
           </div>
         </div>
       )}
+
+      <DeleteAppointmentModal
+        open={Boolean(deleteId)}
+        deleting={deleting}
+        onClose={() => !deleting && setDeleteId(null)}
+        onConfirm={confirmDelete}
+      />
 
       {/* Cancel Confirmation Modal */}
       {cancelId && (
