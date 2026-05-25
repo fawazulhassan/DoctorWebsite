@@ -62,6 +62,20 @@
      color: #274760;
      margin: 0;
    }
+
+@media (max-width: 768px) {
+    .appt-hero__doctor {
+        width: clamp(160px, 50vw, 611px);
+        height: clamp(135px, 44vw, 516px);
+    }
+    .appt-hero__heading {
+        font-size: clamp(14px, 5.5vw, 52.938px);
+    }
+    .appt-hero__subheading{
+        font-size: clamp(8px, 2.4vw, 20px);
+        display: none;
+    }
+}
    
    /* ── SECTION 2: FORM + CONTACT ─────────────────── */
    
@@ -318,3 +332,60 @@
      color: #274760;
      margin: 0;
    }
+
+/* ── RESPONSIVE: SMALL SCREENS ────────────────── */
+
+@media (max-width: 768px) {
+  .appt-main__inner {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .appt-form {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .appt-contact {
+    flex: 0 0 100%;
+    max-width: 100%;
+    width: 100%;
+    margin-top: clamp(16px, 4vw, 60px);
+    text-align: center;
+  }
+
+  .appt-contact__body {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 2vw, 20px);
+    align-items: center;
+  }
+
+  .appt-contact__image {
+    width: 100%;
+    height: auto;
+    margin-bottom: clamp(10px, 2vw, 20px);
+  }
+
+  .appt-contact__details {
+    flex: 1;
+  }
+
+  .appt-contact__heading {
+    font-size: clamp(16px, 5vw, 28px);
+  }
+
+  .appt-contact__item-label {
+    font-size: clamp(10px, 3vw, 18px);
+  }
+
+  .appt-contact__item-value {
+    font-size: clamp(9px, 2.5vw, 16px);
+  }
+
+  .appt-form__heading {
+    font-size: clamp(12px, 5.85vw, 28px);
+    text-align: center;
+  }
+}

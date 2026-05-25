@@ -35,25 +35,29 @@ function ContactInfo() {
   return (
     <div className="appt-contact">
       <h2 className="appt-contact__heading">Contact Info</h2>
-      <img
-        className="appt-contact__image"
-        src={contactImg}
-        alt="Doctor holding phone"
-        loading="lazy"
-      />
-      <div className="appt-contact__item">
-        <p className="appt-contact__item-label">Phone</p>
-        <p className="appt-contact__item-value">{CLINIC.phone}</p>
-      </div>
-      <div className="appt-contact__item">
-        <p className="appt-contact__item-label">Email Us</p>
-        <p className="appt-contact__item-value">{CLINIC.email}</p>
-      </div>
-      <div className="appt-contact__item">
-        <p className="appt-contact__item-label">Our Location</p>
-        <p className="appt-contact__item-value">
-          {CLINIC.lahore.address} / {CLINIC.kasur.address}
-        </p>
+      <div className="appt-contact__body">
+        <img
+          className="appt-contact__image"
+          src={contactImg}
+          alt="Doctor holding phone"
+          loading="lazy"
+        />
+        <div className="appt-contact__details">
+          <div className="appt-contact__item">
+            <p className="appt-contact__item-label">Phone</p>
+            <p className="appt-contact__item-value">{CLINIC.phone}</p>
+          </div>
+          <div className="appt-contact__item">
+            <p className="appt-contact__item-label">Email Us</p>
+            <p className="appt-contact__item-value">{CLINIC.email}</p>
+          </div>
+          <div className="appt-contact__item">
+            <p className="appt-contact__item-label">Our Location</p>
+            <p className="appt-contact__item-value">
+              {CLINIC.lahore.address} / {CLINIC.kasur.address}
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
